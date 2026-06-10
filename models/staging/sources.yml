@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+    - name: instacart
+      schema: main
+      tables:
+        - name: orders
+          description: "One row per order. Contains the order ID, user ID, order number, order day of week, order hour of day and days since prior order."
+        - name: products
+          description: "One row per product. Contains the product ID, product name, and the aisle and department IDs."
+        - name: aisles
+          description: "One row per aisle. Contains the aisle ID and name."
+        - name: departments
+          description: "One row per department. Contains the department ID and name."
+        - name: order_products__prior
+          description: "One row per product per order. Contains the order ID, product ID, cart addition sequence, and whether the product was a reorder." 
