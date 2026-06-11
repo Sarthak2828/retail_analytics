@@ -1,0 +1,96 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Cleaned orders data. One row per order."
+    columns:
+      - name: order_id
+        description: "Primary key — unique identifier for each order."
+        tests:
+          - unique  # should be unique
+          - not_null  # should never be null
+
+      - name: user_id
+        description: "Foreign key to the user who placed the order."
+        tests:
+          - not_null  # should never be null
+
+      - name: days_since_prior_order
+        description: "Days since the user's previous order. NULL for a user's first order."
+
+  - name: stg_products
+    description: "Cleaned products data. One row per product."
+    columns:
+      - name: product_id
+        description: "Primary key - unique identifier for each product."
+        tests:
+          - unique # should be unique
+          - not_null  # should never be null 
+      
+      - name: product_name
+        description: "Name of the product."
+        tests:
+          - not_null  # should never be null 
+
+      - name: aisle_id
+        description: "Foreign key to the aisle where the product is located."
+        tests:
+          - not_null  # should never be null
+      
+      - name: department_id
+        description: "Foreign key to the department where the product is located."
+        tests:
+          - not_null  # should never be null
+    
+  - name: stg_aisles
+    description: "Cleaned aisles data. One row per aisle."
+    columns:
+      - name: aisle_id
+        description: "Primary key - unique identifier for each aisle."
+        tests:
+          - unique # should be unique
+          - not_null  # should never be null 
+
+      - name: aisle_name
+        description: "Name of the aisle."
+        tests:
+          - not_null  # should never be null
+
+  - name: stg_departments
+    description: "Cleaned departments data. One row per department."
+    columns:
+      - name: department_id
+        description: "Primary key - unique identifier for each department."
+        tests:
+          - unique # should be unique
+          - not_null  # should never be null 
+
+      - name: department_name
+        description: "Name of the department."
+        tests:
+          - not_null  # should never be null
+
+  - name: stg_order_products
+    description: "Cleaned order_products data. One row per product in an order."
+    columns:
+      - name: order_id
+        description: "Foreign key to the order."
+        tests:
+          - not_null  # should never be null 
+
+      - name: product_id
+        description: "Foreign key to the product."
+        tests:
+          - not_null  # should never be null
+          - relationships:
+              to: ref('stg_products') # only products that exist in stg_products should be in stg_order_products
+              field: product_id
+
+      - name: add_to_cart_order
+        description: "The order in which the product was added to the cart."
+
+      - name: reordered
+        description: "Whether the product was reordered (1) or not (0)."
+        tests:
+          - accepted_values:  
+              values: [true, false]
