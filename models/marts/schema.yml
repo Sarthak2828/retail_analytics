@@ -1,0 +1,100 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "Denormalized product dimension"
+    columns:
+      - name: product_id
+        description: "Primary key — unique identifier for each product."
+        tests:
+          - unique  # should be unique
+          - not_null  # should never be null
+
+      - name: product_name
+        description: "Name of the product"
+        tests:
+          - not_null  # should never be null
+
+      - name: aisle_name
+        description: "Aisle where the product is located"
+        tests:
+          - not_null
+
+      - name: department_name
+        description: "Department where the product is located"
+        tests:
+          - not_null 
+
+  - name: dim_users
+    description: "User-level behavioral metrics"
+    columns:
+      - name: user_id
+        description: "Primary key - unique identifier for each user."
+        tests:
+          - unique # should be unique
+          - not_null  # should never be null 
+          - relationships: # every user should have orders in fact table
+              to: ref('fct_orders')
+              field: user_id
+
+      - name: total_orders
+        description: "Count of orders per user_id"
+        tests:
+          - not_null  # should never be null 
+
+      - name: reorder_rate
+        description: "rate of products that a user has reordered"
+        tests:
+          - not_null  # should never be null
+  
+    
+  - name: fct_orders
+    description: "Order line fact table"
+    columns:
+      - name: order_id
+        description: "Order id. Part of composite key for fact table along with product id"
+        tests:
+          - not_null  # should never be null 
+
+      - name: product_id
+        description: "Product id. Part of composite key for fact table"
+        tests:
+          - not_null  # should never be null
+      
+      - name: user_id
+        description: "Id for each user."
+        tests:
+          - not_null  # should never be null 
+      
+      - name: reordered
+        description: "Boolean field indicating True/reorder or False/not reordered"
+        tests:
+          - accepted_values:
+              values: [true, false]  
+
+  - name: mart_customer_segments
+    description: "Percentile-based customer segmentation with department affinity"
+    columns:
+      - name: user_id
+        description: "Primary key - unique identifier for each user."
+        tests:
+          - unique # should be unique
+          - not_null  # should never be null 
+
+      - name: customer_segment
+        description: "Customer segment value based on percentile."
+        tests:
+          - accepted_values:
+              values: ['High Value', 'Mid Value', 'Low Value']
+      
+      - name: reorder_segment
+        description: "Reorder segment value based on percentile."
+        tests:
+          - accepted_values:
+              values: ['High Reorder', 'Mid Reorder', 'Low Reorder']
+
+      - name: top_department
+        description: "Most ordered department for customer"
+        tests:
+          - not_null
+
