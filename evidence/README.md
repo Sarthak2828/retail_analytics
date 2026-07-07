@@ -1,48 +1,72 @@
-# Evidence Template Project
+# Instacart Analytics Dashboard — Evidence + DuckDB
 
-## Using Codespaces
+## Overview
+An interactive analytics dashboard built on top of the retail_analytics dbt project,
+visualizing customer segmentation and behavioral patterns from the
+[Instacart Market Basket dataset](https://www.kaggle.com/datasets/yasserh/instacart-online-grocery-basket-analysis-dataset)
+using Evidence.dev and DuckDB.
 
-If you are using this template in Codespaces, click the `Start Evidence` button in the bottom status bar. This will install dependencies and open a preview of your project in your browser - you should get a popup prompting you to open in browser.
+## Tech Stack
+- **Evidence.dev** — SQL-driven dashboard framework
+- **DuckDB** — local analytical warehouse (shared with dbt project)
+- **Node.js 24** — Evidence runtime
 
-Or you can use the following commands to get started:
+## Dashboard Structure
+
+Four sections covering the full analytical narrative:
+
+| Section | Content |
+|---|---|
+| Overview | KPI cards — total customers, avg reorder rate, most popular department |
+| Customer Segments | Segment summary table with behavioral metrics by tier |
+| Shopping Behavior | Department preference by segment, loyalty overlap across tiers |
+| Trends Over Time | Basket size trend across first 30 orders by segment |
+| Explore the Data | Interactive scatter plot — reorder rate vs order frequency by department |
+
+## Key Findings
+
+- **High Value customers place 8x more orders** than Low Value customers and reorder at nearly 2.5x the rate
+- **Produce dominates across all segments** — High Value customers make up a disproportionate share of every department
+- **Order frequency and reorder loyalty are correlated** — the same customers who order most also reorder most
+- **Basket size converges by order 5** — High Value customers start with slightly larger baskets but all segments stabilize around 10 items
+
+## How to Run
+
+### Prerequisites
+- Node.js 18+
+- dbt project set up with `dev.duckdb` built at the project root
+- See the main [README](../README.md) for dbt setup instructions
+
+### Setup
+
+**1. Navigate to the evidence folder**
+
+```bash
+cd evidence
+```
+
+**2. Install dependencies**
 
 ```bash
 npm install
-npm run sources
-npm run dev -- --host 0.0.0.0
 ```
 
-See [the CLI docs](https://docs.evidence.dev/cli/) for more command information.
-
-**Note:** Codespaces is much faster on the Desktop app. After the Codespace has booted, select the hamburger menu → Open in VS Code Desktop.
-
-## Get Started from VS Code
-
-The easiest way to get started is using the [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=Evidence.evidence-vscode):
-
-
-
-1. Install the extension from the VS Code Marketplace
-2. Open the Command Palette (Ctrl/Cmd + Shift + P) and enter `Evidence: New Evidence Project`
-3. Click `Start Evidence` in the bottom status bar
-
-## Get Started using the CLI
+**3. Load sources**
 
 ```bash
-npx degit evidence-dev/template my-project
-cd my-project 
-npm install 
 npm run sources
-npm run dev 
 ```
 
-Check out the docs for [alternative install methods](https://docs.evidence.dev/getting-started/install-evidence) including Docker, Github Codespaces, and alongside dbt.
+**4. Start the dev server**
 
+```bash
+npm run dev
+```
 
+Navigate to `http://localhost:3000`
 
-## Learning More
-
-- [Docs](https://docs.evidence.dev/)
-- [Github](https://github.com/evidence-dev/evidence)
-- [Slack Community](https://slack.evidence.dev/)
-- [Evidence Home Page](https://www.evidence.dev)
+## Key Concepts Demonstrated
+- **BI as code** — dashboards defined in SQL and Markdown, version controlled alongside the dbt project
+- **Pre-aggregated sources** — large fact tables aggregated at the source layer to keep Evidence performant
+- **Insight-driven titles** — chart titles state the finding, not just the metric
+- **Interactive exploration** — legend-based series filtering for ad hoc department analysis

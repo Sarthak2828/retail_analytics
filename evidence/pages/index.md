@@ -92,7 +92,7 @@ group by customer_segment, top_department
     series=customer_segment
     swapXY=true
     chartAreaHeight=400
-    title="Department Preference by Customer Segment"
+    title="Produce Dominates Across All Customer Segments"
 />
 
 *Produce dominates across all segments. High Value customers make up a disproportionate share of every department.*
