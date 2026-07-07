@@ -11,6 +11,7 @@ layers, dimensional modeling, and data quality testing using dbt Core and DuckDB
 - **DuckDB 1.10** — local analytical warehouse
 - **Python 3.13** — bulk data loading utilities
 - **Dataset** — Instacart Market Basket (32M+ order line items)
+- **Evidence.dev** — SQL-driven dashboard layer
 
 ## Project Structure
 
@@ -143,3 +144,13 @@ dbt run
 - **Customer segmentation** — percentile-based behavioral segmentation using
   `PERCENTILE_CONT` for dynamic p33/p66 thresholds across order frequency
   and reorder rate dimensions
+
+## Dashboard
+
+An interactive Evidence.dev dashboard is included in the `evidence/` folder, visualizing the customer segmentation output from the dbt marts layer.
+
+![Dashboard](docs/dashboard_screenshot.png)
+
+Charts include department preference by segment, loyalty overlap, basket size trends, and an interactive reorder rate explorer.
+
+See the [Evidence README](evidence/README.md) for setup instructions.
