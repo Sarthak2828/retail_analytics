@@ -1,0 +1,1 @@
+{"renderedFiles":{"instacart":["static/data/instacart/customer_segments/customer_segments.parquet","static/data/instacart/dim_products/dim_products.parquet","static/data/instacart/dim_users/dim_users.parquet","static/data/instacart/fct_orders/fct_orders.parquet"]}}

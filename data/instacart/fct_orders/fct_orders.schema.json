@@ -1,0 +1,1 @@
+[{"name":"order_number","evidenceType":"number","typeFidelity":"precise"},{"name":"customer_segment","evidenceType":"string","typeFidelity":"precise"},{"name":"avg_products","evidenceType":"number","typeFidelity":"precise"}]
