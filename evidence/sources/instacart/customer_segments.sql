@@ -1,0 +1,1 @@
+select * from main.mart_customer_segments
