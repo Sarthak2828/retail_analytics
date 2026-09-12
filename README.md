@@ -85,7 +85,7 @@ dbt test
 **1. Clone the repo**
 
 ```bash
-git clone https://github.com/mapdx/retail_analytics.git
+git clone https://github.com/Sarthak2828/retail_analytics.git
 cd retail_analytics
 ```
 
