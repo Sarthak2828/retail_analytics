@@ -5,7 +5,7 @@ import os
 db_path = os.path.join(os.path.dirname(__file__), "..", "dev.duckdb")
 
 # Update this path for input CSV file
-csv_path = r"C:\Users\mwood\Data\instacart\order_products__prior.csv"
+csv_path = os.path.join(os.path.dirname(__file__), "..", "data", "order_products__prior.csv")
 
 # Connect to the existing DuckDB file that dbt uses, so the table will be visible to dbt models
 con = duckdb.connect(db_path)
